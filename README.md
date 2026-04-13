@@ -2,6 +2,17 @@
 
 A mobile web game that will be played by party guests.  The party is celebrating the graduation of 5 cousins this year: Solie is graduating from Middle School, Diego and Levi from High school, Lars from College and Lucia from a Masters Degree program.
 
+## Quickstart
+
+```
+cd gradtrivia
+npm install
+npm build
+npm run db:push
+npm run db:seed
+run run dev
+```
+
 ## Joining the Game
 
 * We will print posters with QR codes for guests to join the game.  
