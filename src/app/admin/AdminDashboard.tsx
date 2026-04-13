@@ -509,12 +509,12 @@ export function AdminDashboard() {
                 ))}
               </select>
             </label>
-            <label className="text-sm">
-              Upload
+            <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--accent)]/80">
+              Upload Image
               <input
                 type="file"
                 accept="image/*"
-                className="ml-2"
+                className="hidden"
                 onChange={(e) =>
                   void uploadImage(e.target.files?.[0] ?? null)
                 }
