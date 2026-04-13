@@ -1,0 +1,21 @@
+Grad,Question,Answer,Wrong Answer 1,Wrong Answer 2,Wrong Answer 3,Wrong Answer 4
+Levi,"This is Levi question number 1, it's a longer question.  Longer questions will be about this long.",This is the right answer,This is a wrong answer,This is a longer wrong answer,Wrong Answer,
+Levi,Levi Question number 2.  A medium length question.  Yay!,Right Answer,Wrong ,A pretty long wrong answer. About as long as an answer should be,Wrong,
+Levi,"Levi Question number 3, It's short",Right Answer,Wrong Answer,Wrong,Also Wrong,Still Wrong
+Lars,"This is Lars question number 1, it's a longer question.  Longer questions will be about this long.",This is the right answer,This is a wrong answer,This is a longer wrong answer,Wrong Answer,
+Lars,Lars Question number 2.  A medium length question.  Yay!,Right Answer,Wrong ,A pretty long wrong answer. About as long as an answer should be,Wrong,
+Lars,"Lars Question number 3, It's short",Right Answer,Wrong Answer,Wrong,Also Wrong,Still Wrong
+Lucia,"This is Lucia question number 1, it's a longer question.  Longer questions will be about this long.",This is the right answer,This is a wrong answer,This is a longer wrong answer,Wrong Answer,
+Lucia,Lucia Question number 2.  A medium length question.  Yay!,Right Answer,Wrong ,A pretty long wrong answer. About as long as an answer should be,Wrong,
+Lucia,"Lucia Question number 3, It's short",Right Answer,Wrong Answer,Wrong,Also Wrong,Still Wrong
+Diego,"This is Diego question number 1, it's a longer question.  Longer questions will be about this long.",This is the right answer,This is a wrong answer,This is a longer wrong answer,Wrong Answer,
+Diego,Diego Question number 2.  A medium length question.  Yay!,Right Answer,Wrong ,A pretty long wrong answer. About as long as an answer should be,Wrong,
+Diego,"Diego Question number 3, It's short",Right Answer,Wrong Answer,Wrong,Also Wrong,Still Wrong
+Solie,"This is Solie question number 1, it's a longer question.  Longer questions will be about this long.",This is the right answer,This is a wrong answer,This is a longer wrong answer,Wrong Answer,
+Solie,Solie Question number 2.  A medium length question.  Yay!,Right Answer,Wrong ,A pretty long wrong answer. About as long as an answer should be,Wrong,
+Solie,"Solie Question number 3, It's short",Right Answer,Wrong Answer,Wrong,Also Wrong,Still Wrong
+Guess,This is a Guess who question.  Levi is the right answer,Levi,Lars,Lucia,Diego,Solie
+Guess,Lars is the right answer,Lars,Levi,Lucia,Diego,Solie
+Guess,Guess who's Lucia?,Lucia,Levi,Lars,Diego,Solie
+Guess,What starts with D and ends with iego?,Diego,Levi,Lars,Lucia,Solie
+Guess,Who is the best Solie?,Solie,Levi,Lars,Lucia,Diego
