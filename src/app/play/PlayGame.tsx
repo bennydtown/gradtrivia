@@ -237,7 +237,7 @@ export function PlayGame() {
             <span className="text-sm text-[var(--muted)]">Your name</span>
             <input
               className="mt-1 w-full rounded-xl border border-[var(--muted)]/30 bg-[var(--surface)] px-4 py-3 text-lg text-[var(--text)] outline-none ring-[var(--accent)]/40 focus:ring-2"
-              placeholder="Party name"
+              placeholder="What should we call you?"
               value={nameInput}
               onChange={(e) => setNameInput(e.target.value)}
               maxLength={48}
