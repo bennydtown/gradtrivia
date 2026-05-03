@@ -8,7 +8,7 @@ export default function HomePage() {
           5 Grad Trivia
         </h1>
         <p className="mt-3 text-[var(--muted)]">
-          A party game for family and friends
+          Who knows them best?
         </p>
       </div>
       <div className="flex flex-col gap-3">
@@ -31,9 +31,6 @@ export default function HomePage() {
           QR poster for hosts
         </Link>
       </div>
-      <p className="text-center text-sm text-[var(--muted)]">
-        No link to admin — use the URL you were given.
-      </p>
     </main>
   );
 }
