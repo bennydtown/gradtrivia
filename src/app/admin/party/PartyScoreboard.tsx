@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import {
   formatLeaderScore,
@@ -21,8 +22,13 @@ const TITLES: Record<string, string> = {
 export function PartyScoreboard() {
   const [idx, setIdx] = useState(0);
   const [rows, setRows] = useState<LeaderboardRow[]>([]);
+  const [joinUrl, setJoinUrl] = useState("");
 
   const scope = GRAD_KEYS[idx];
+
+  useEffect(() => {
+    setJoinUrl(`${window.location.host}/play`);
+  }, []);
 
   const load = useCallback(async () => {
     const res = await fetch(
@@ -65,27 +71,54 @@ export function PartyScoreboard() {
         </p>
       </header>
 
-      <ol className="grid flex-1 grid-cols-1 gap-4 md:grid-cols-2">
-        {rows.length === 0 && (
-          <li className="col-span-full text-center text-2xl text-[var(--muted)]">
-            No one on the board yet — check back soon.
-          </li>
-        )}
-        {rows.map((row, i) => (
-          <li
-            key={`${row.name}-${i}`}
-            className="flex items-baseline justify-between rounded-2xl bg-[var(--surface)] px-8 py-6 shadow-lg"
-          >
-            <span className="text-2xl font-medium md:text-3xl">
-              <span className="mr-4 text-[var(--muted)]">{i + 1}.</span>
-              {row.name}
-            </span>
-            <span className="text-3xl font-semibold tabular-nums text-[var(--accent)] md:text-4xl">
-              {formatLeaderScore(row)}
-            </span>
-          </li>
-        ))}
-      </ol>
+      <div className="flex min-h-0 flex-1 gap-10">
+        <ol className="grid w-2/3 grid-cols-1 content-start gap-4 md:grid-cols-2">
+          {rows.length === 0 && (
+            <li className="col-span-full text-center text-2xl text-[var(--muted)]">
+              No one on the board yet — check back soon.
+            </li>
+          )}
+          {rows.map((row, i) => (
+            <li
+              key={`${row.name}-${i}`}
+              className="flex items-baseline justify-between rounded-2xl bg-[var(--surface)] px-8 py-6 shadow-lg"
+            >
+              <span className="text-2xl font-medium md:text-3xl">
+                <span className="mr-4 text-[var(--muted)]">{i + 1}.</span>
+                {row.name}
+              </span>
+              <span className="text-3xl font-semibold tabular-nums text-[var(--accent)] md:text-4xl">
+                {formatLeaderScore(row)}
+              </span>
+            </li>
+          ))}
+        </ol>
+
+        <aside className="flex w-1/3 flex-col items-center justify-center gap-6 rounded-2xl bg-[var(--surface)] p-8 shadow-lg">
+          <p className="text-2xl font-semibold uppercase tracking-[0.15em] text-[var(--accent)] md:text-3xl">
+            Scan to play
+          </p>
+          <div className="rounded-2xl bg-white p-4 shadow-xl">
+            <Image
+              src="/api/qr"
+              alt="QR code to join the trivia game"
+              width={360}
+              height={360}
+              unoptimized
+              priority
+              className="h-auto w-full max-w-[min(28vw,360px)]"
+            />
+          </div>
+          <div className="text-center">
+            <p className="text-sm uppercase tracking-[0.2em] text-[var(--muted)]">
+              or visit
+            </p>
+            <p className="mt-2 text-2xl font-semibold text-[var(--text)] md:text-3xl">
+              {joinUrl}
+            </p>
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }

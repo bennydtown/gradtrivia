@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5-Grad Trivia Poster</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e8f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .poster {
+      width: 8.5in;
+      min-height: 11in;
+      background: linear-gradient(160deg, #1a3a5c 0%, #2d6a9f 40%, #1a3a5c 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.45in 0.5in 0.4in;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative background circles */
+    .poster::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: -80px;
+      width: 320px;
+      height: 320px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+    .poster::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      right: -60px;
+      width: 260px;
+      height: 260px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+
+    /* Star confetti */
+    .stars {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      font-size: 18px;
+      opacity: 0.18;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 0.25in;
+      position: relative;
+      z-index: 1;
+    }
+
+    .title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 72pt;
+      color: #FFD700;
+      text-shadow:
+        3px 3px 0 #b8860b,
+        6px 6px 12px rgba(0,0,0,0.5);
+      line-height: 1.05;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      font-family: 'Nunito', sans-serif;
+      font-size: 26pt;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+      text-shadow: 1px 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .photo-frame {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 6.8in;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 6px #FFD700,
+        0 0 0 10px #2d6a9f,
+        0 8px 40px rgba(0,0,0,0.6);
+      margin-bottom: 0.3in;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5in;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .qr-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .scan-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #FFD700;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 15pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .arrow {
+      font-size: 22pt;
+      display: inline-block;
+      color: #FFD700;
+    }
+
+    .qr-wrapper {
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      border: 4px solid #FFD700;
+    }
+
+    #qrcode canvas, #qrcode img {
+      display: block;
+    }
+
+    .url-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .url-label {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 11pt;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .url-text {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 22pt;
+      color: #FFD700;
+      text-shadow: 1px 2px 6px rgba(0,0,0,0.4);
+      word-break: break-all;
+    }
+
+    .tagline {
+      margin-top: 0.18in;
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 10pt;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media print {
+      body { background: none; }
+      .poster { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- Decorative stars -->
+    <div class="stars">
+      <span class="star" style="top:5%;left:3%">★</span>
+      <span class="star" style="top:8%;left:90%">✦</span>
+      <span class="star" style="top:2%;left:50%">★</span>
+      <span class="star" style="top:15%;left:95%">✦</span>
+      <span class="star" style="top:80%;left:5%">★</span>
+      <span class="star" style="top:90%;left:15%">✦</span>
+      <span class="star" style="top:85%;left:88%">★</span>
+      <span class="star" style="top:75%;left:97%">✦</span>
+      <span class="star" style="top:50%;left:1%">★</span>
+      <span class="star" style="top:60%;left:98%">✦</span>
+    </div>
+
+    <div class="header">
+      <div class="title">Play 5-Grad Trivia!</div>
+      <div class="subtitle">who knows them best?</div>
+    </div>
+
+    <div class="photo-frame">
+      <img src="images/group-photo.png" alt="The 5 grads" />
+    </div>
+
+    <div class="bottom-row">
+      <div class="qr-section">
+        <div class="scan-label">
+          scan to play! ↓
+        </div>
+        <div class="qr-wrapper">
+          <div id="qrcode"></div>
+        </div>
+      </div>
+
+      <div class="url-section">
+        <div class="url-label">or visit</div>
+        <div class="url-text">bit.ly/4eqOiK9</div>
+      </div>
+    </div>
+
+    <div class="tagline">Open on your phone &amp; compete with friends!</div>
+  </div>
+
+  <script>
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://gradtrivia-production.up.railway.app/",
+      width: 180,
+      height: 180,
+      colorDark: "#1a3a5c",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+</body>
+</html>

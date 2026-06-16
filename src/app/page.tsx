@@ -24,12 +24,6 @@ export default function HomePage() {
         >
           High scores
         </Link>
-        <Link
-          href="/qr"
-          className="text-center text-sm text-[var(--muted)] underline-offset-2 hover:text-[var(--accent)] hover:underline"
-        >
-          QR poster for hosts
-        </Link>
       </div>
     </main>
   );
