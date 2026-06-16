@@ -1,14 +1,8 @@
 import QRCode from "qrcode";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const host = url.host;
-  const protocol = url.protocol;
-  const base =
-    process.env.PUBLIC_BASE_URL?.replace(/\/$/, "") ??
-    `${protocol}//${host}`;
-  const joinUrl = `${base}/play`;
+export async function GET() {
+  const joinUrl = "https://gradtrivia-production.up.railway.app/play";
 
   const png = await QRCode.toBuffer(joinUrl, {
     type: "png",
