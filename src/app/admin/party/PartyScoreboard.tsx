@@ -22,13 +22,8 @@ const TITLES: Record<string, string> = {
 export function PartyScoreboard() {
   const [idx, setIdx] = useState(0);
   const [rows, setRows] = useState<LeaderboardRow[]>([]);
-  const [joinUrl, setJoinUrl] = useState("");
 
   const scope = GRAD_KEYS[idx];
-
-  useEffect(() => {
-    setJoinUrl(`${window.location.host}/play`);
-  }, []);
 
   const load = useCallback(async () => {
     const res = await fetch(
@@ -114,7 +109,7 @@ export function PartyScoreboard() {
               or visit
             </p>
             <p className="mt-2 text-2xl font-semibold text-[var(--text)] md:text-3xl">
-              {joinUrl}
+              bit.ly/4eqOiK9
             </p>
           </div>
         </aside>
