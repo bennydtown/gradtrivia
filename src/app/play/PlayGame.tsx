@@ -228,7 +228,8 @@ export function PlayGame() {
             See how much you know about the 5 graduating cousins!
           </p>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-[length:calc(0.875rem*1.25)] text-[var(--text)]/90">
-            <li>Graduates won&apos;t tell you the answers, but they can tell you who MIGHT know.</li>
+            <li>Graduates won&apos;t tell you the answers.</li>
+            <li>They can tell you who might know.</li>
             <li>Play at your own pace. Have fun!</li>
           </ul>
         </header>
