@@ -41,6 +41,9 @@ export function AdminDashboard() {
   const [editGuessText, setEditGuessText] = useState("");
   const [editGuessCorrect, setEditGuessCorrect] = useState("");
 
+  const [editingTextId, setEditingTextId] = useState<number | null>(null);
+  const [editText, setEditText] = useState("");
+
   const [imageGrad, setImageGrad] = useState<(typeof GRAD_SLUGS)[number]>("levi");
   const [images, setImages] = useState<
     { id: number; gradSlug: string; filename: string }[]
@@ -122,6 +125,32 @@ export function AdminDashboard() {
     setEditingGuessId(null);
     setEditGuessText("");
     setEditGuessCorrect("");
+  }
+
+  function startEditText(q: QuestionRow) {
+    setEditingTextId(q.id);
+    setEditText(q.questionText);
+  }
+
+  function cancelEditText() {
+    setEditingTextId(null);
+    setEditText("");
+  }
+
+  async function saveTextEdit(e: React.FormEvent, id: number) {
+    e.preventDefault();
+    const res = await fetch(`/api/admin/questions/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ questionText: editText.trim() }),
+    });
+    if (!res.ok) {
+      setError("Could not save question");
+      return;
+    }
+    setError(null);
+    cancelEditText();
+    await loadQuestions();
   }
 
   async function saveGuessWhoEdit(e: React.FormEvent, id: number) {
@@ -450,6 +479,70 @@ export function AdminDashboard() {
                         </button>
                       </div>
                     </form>
+                  ) : editingTextId === q.id && q.type !== "guess_who" ? (
+                    <form
+                      className="space-y-3"
+                      onSubmit={(e) => void saveTextEdit(e, q.id)}
+                    >
+                      <span className="text-xs uppercase text-[var(--accent)]">
+                        {GRAD_LABELS[q.gradSlug] ?? q.gradSlug} · {q.type}
+                      </span>
+                      <label className="block text-sm">
+                        <span className="text-[var(--muted)]">Grad</span>
+                        <select
+                          className="mt-1 w-full rounded-lg border border-[var(--muted)]/30 bg-[var(--bg)] px-3 py-2 cursor-not-allowed opacity-50"
+                          value={q.gradSlug}
+                          disabled
+                        >
+                          <option value={q.gradSlug}>
+                            {GRAD_LABELS[q.gradSlug] ?? q.gradSlug}
+                          </option>
+                        </select>
+                      </label>
+                      <label className="block text-sm">
+                        <span className="text-[var(--muted)]">Question</span>
+                        <textarea
+                          className="mt-1 w-full rounded-lg border border-[var(--muted)]/30 bg-[var(--bg)] px-3 py-2"
+                          rows={3}
+                          value={editText}
+                          onChange={(e) => setEditText(e.target.value)}
+                          required
+                        />
+                      </label>
+                      <label className="block text-sm">
+                        <span className="text-[var(--muted)]">Correct answer</span>
+                        <input
+                          className="mt-1 w-full rounded-lg border border-[var(--muted)]/30 bg-[var(--bg)] px-3 py-2 cursor-not-allowed opacity-50"
+                          value={q.correctAnswer}
+                          disabled
+                        />
+                      </label>
+                      {(JSON.parse(q.wrongAnswers) as string[]).map((w, i) => (
+                        <label key={i} className="block text-sm">
+                          <span className="text-[var(--muted)]">Wrong {i + 1}</span>
+                          <input
+                            className="mt-1 w-full rounded-lg border border-[var(--muted)]/30 bg-[var(--bg)] px-3 py-2 cursor-not-allowed opacity-50"
+                            value={w}
+                            disabled
+                          />
+                        </label>
+                      ))}
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          type="submit"
+                          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-[var(--bg)]"
+                        >
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          onClick={cancelEditText}
+                          className="rounded-lg border border-[var(--muted)]/40 px-4 py-2 text-sm text-[var(--muted)]"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
                   ) : (
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <div>
@@ -464,15 +557,17 @@ export function AdminDashboard() {
                         )}
                       </div>
                       <div className="flex gap-3">
-                        {q.type === "guess_who" && (
-                          <button
-                            type="button"
-                            onClick={() => startEditGuessWho(q)}
-                            className="text-sm text-[var(--accent)]"
-                          >
-                            Edit
-                          </button>
-                        )}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            q.type === "guess_who"
+                              ? startEditGuessWho(q)
+                              : startEditText(q)
+                          }
+                          className="text-sm text-[var(--accent)]"
+                        >
+                          Edit
+                        </button>
                         <button
                           type="button"
                           onClick={() => void deleteQuestion(q.id)}
